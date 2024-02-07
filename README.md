@@ -1,6 +1,14 @@
 # ddnet_hotui
 Iterate in ddnet ui development without rebooting the client. CUIRect hot reloading.
 
+## how it looks like when it works
+
+A sample implementation can be seen [here](https://github.com/ChillerDragon/ddnet/commit/95695caadde37c4201c01c5c8d08f2068d3cfd8b).
+
+Here is how your development with hot reloading could look like:
+
+https://github.com/ChillerDragon/ddnet_hotui/assets/20344300/85bc7a03-98a4-4fb1-b389-2cd2959a0911
+
 ## folder setup
 
 The examples assume you have the following setup.
@@ -75,12 +83,4 @@ add_cxx_compiler_flag_if_supported(OUR_FLAGS_LINK -rdynamic)
 ```
 
 Then you can play around in the ``sample.cpp`` file and run ``make`` when you are done. If the path here ``void *handle = dlopen("../../ddnet_hotui/sample.so", RTLD_LAZY);`` is correct you should see instant ui changes in your running client.
-
-## how it looks like when it works
-
-A sample implementation can we seen [here](https://github.com/ChillerDragon/ddnet/commit/95695caadde37c4201c01c5c8d08f2068d3cfd8b).
-
-Here is how your development with hot reloading could look like:
-
-https://github.com/ChillerDragon/ddnet_hotui/assets/20344300/85bc7a03-98a4-4fb1-b389-2cd2959a0911
 
