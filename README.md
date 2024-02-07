@@ -39,40 +39,14 @@ If you nest it differently or named things differently. You have to adjust the p
 
 Add this to the top of your ddnet client code C++ file
 ```C++
-#include <cstring>
-#include <dlfcn.h>
-#include <stdio.h>
-#include <stdlib.h>
-
-typedef void (*plugin_ptr_t)(CUIRect &View);
+#include "../../ddnet_hotui/loader.h"
 ```
 
 And this in the method where you want to do hot reloading
 ```C++
 // void CMenus::RenderSettings(CUIRect MainView)
 // {
-	char *error;
-	void *handle = dlopen("../../ddnet_hotui/sample.so", RTLD_LAZY);
-	if(!handle)
-	{
-		fprintf(stderr, "%s\n", dlerror());
-		return;
-	}
-
-	dlerror();
-	plugin_ptr_t tick_ptr;
-	tick_ptr = (plugin_ptr_t)dlsym(handle, "ui_tick");
-
-	error = dlerror();
-	if(error != NULL)
-	{
-		fprintf(stderr, "%s\n", error);
-		return;
-	}
-
-	tick_ptr(MainView);
-
-	dlclose(handle);
+	HotUi(MainView);
 // }
 ```
 
@@ -83,4 +57,3 @@ add_cxx_compiler_flag_if_supported(OUR_FLAGS_LINK -rdynamic)
 ```
 
 Then you can play around in the ``sample.cpp`` file and run ``make`` when you are done. If the path here ``void *handle = dlopen("../../ddnet_hotui/sample.so", RTLD_LAZY);`` is correct you should see instant ui changes in your running client.
-
