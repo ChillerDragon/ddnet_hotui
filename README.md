@@ -11,6 +11,9 @@ https://github.com/ChillerDragon/ddnet_hotui/assets/20344300/85bc7a03-98a4-4fb1-
 
 ![output](https://github.com/ChillerDragon/ddnet_hotui/assets/20344300/512b3728-570a-4ee6-b279-68cbe5208b2b)
 
+## full on video tutorial on how to use it
+
+[![ddnet hotui video tutorial](https://img.youtube.com/vi/S4Jwy62oRy8/hqdefault.jpg)](https://www.youtube.com/embed/S4Jwy62oRy8)
 
 ## folder setup
 
