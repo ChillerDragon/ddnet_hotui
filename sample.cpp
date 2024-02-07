@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <cstring>
 
+#include "../ddnet/src/engine/keys.h"
 #include "../ddnet/src/game/editor/editor.h"
 #include "../ddnet/src/game/client/ui_rect.h"
 #include "../ddnet/src/engine/graphics.h"
