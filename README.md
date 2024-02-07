@@ -12,10 +12,10 @@ https://github.com/ChillerDragon/ddnet_hotui/assets/20344300/85bc7a03-98a4-4fb1-
 ## folder setup
 
 The examples assume you have the following setup.
-``bash
+```bash
 git clone git@github.com:ChillerDragon/ddnet_hotui.git
 git clone git@github.com:ddnet/ddnet.git --recursive
-``
+```
 
 So a folder called ddnet/ with the ddnet source code.
 And a folder with this repo right next to it. It further more expects you to run the client from ddnet/build/DDNet
