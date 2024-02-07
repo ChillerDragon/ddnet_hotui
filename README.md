@@ -9,6 +9,9 @@ Here is how your development with hot reloading could look like:
 
 https://github.com/ChillerDragon/ddnet_hotui/assets/20344300/85bc7a03-98a4-4fb1-b389-2cd2959a0911
 
+![output](https://github.com/ChillerDragon/ddnet_hotui/assets/20344300/512b3728-570a-4ee6-b279-68cbe5208b2b)
+
+
 ## folder setup
 
 The examples assume you have the following setup.
