@@ -7,9 +7,9 @@
 extern "C"{
 
 // View1, View2, ..
-// are set to the values you pass to HotUi()
+// are set to the values you pass to HotCuiRects()
 // if you do not pass values it will be set to an empty new CUIRect
-void ui_tick(
+void hot_cui_rects(
 	CUIRect &View1,
 	CUIRect &View2,
 	CUIRect &View3,

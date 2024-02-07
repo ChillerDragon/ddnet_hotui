@@ -46,7 +46,7 @@ And this in the method where you want to do hot reloading
 ```C++
 // void CMenus::RenderSettings(CUIRect MainView)
 // {
-	HotUi(MainView);
+	HotCuiRects(MainView);
 // }
 ```
 

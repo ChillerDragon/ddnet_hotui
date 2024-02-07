@@ -12,7 +12,7 @@ CUIRect placeholder4;
 CUIRect placeholder5;
 CUIRect placeholder6;
 
-void HotUi(
+void HotCuiRects(
 	CUIRect &View1 = placeholder1,
 	CUIRect &View2 = placeholder2,
 	CUIRect &View3 = placeholder3,
@@ -30,7 +30,7 @@ void HotUi(
 
 	dlerror();
 	plugin_ptr_t tick_ptr;
-	tick_ptr = (plugin_ptr_t)dlsym(handle, "ui_tick");
+	tick_ptr = (plugin_ptr_t)dlsym(handle, "hot_cui_rects");
 
 	error = dlerror();
 	if(error != NULL)
