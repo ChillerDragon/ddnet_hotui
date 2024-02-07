@@ -13,7 +13,7 @@ https://github.com/ChillerDragon/ddnet_hotui/assets/20344300/85bc7a03-98a4-4fb1-
 
 ## full on video tutorial on how to use it
 
-[![ddnet hotui video tutorial](https://img.youtube.com/vi/S4Jwy62oRy8/hqdefault.jpg)](https://www.youtube.com/embed/S4Jwy62oRy8)
+[![ddnet hotui video tutorial](https://img.youtube.com/vi/S4Jwy62oRy8/hqdefault.jpg)](https://www.youtube.com/watch?v=S4Jwy62oRy8)
 
 ## folder setup
 
