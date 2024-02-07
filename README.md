@@ -50,7 +50,7 @@ Then you can play around in the ``sample.cpp`` file and run ``make`` when you ar
 
 A sample implementation can we seen [here](https://github.com/ChillerDragon/ddnet/commit/95695caadde37c4201c01c5c8d08f2068d3cfd8b).
 
-Here is how your development with hotreloading could look like:
+Here is how your development with hot reloading could look like:
 
 
 
