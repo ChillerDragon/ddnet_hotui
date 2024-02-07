@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+class CEditor;
+
 typedef void (*cui_rects_ptr_t)(
 	CUIRect &View1,
 	CUIRect &View2,
