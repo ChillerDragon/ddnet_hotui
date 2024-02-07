@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <cstring>
 
-#include "../src/game/client/ui_rect.h"
-#include "../src/engine/graphics.h"
+#include "../ddnet/src/game/client/ui_rect.h"
+#include "../ddnet/src/engine/graphics.h"
 
 extern "C"{
 
