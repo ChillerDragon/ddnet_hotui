@@ -11,7 +11,7 @@ Add this to the top of your ddnet client code C++ file
 typedef void (*plugin_ptr_t)(CUIRect &View);
 ```
 
-And this in the method where you want to do hotreloading
+And this in the method where you want to do hot reloading
 ```C++
 // void CMenus::RenderSettings(CUIRect MainView)
 // {
