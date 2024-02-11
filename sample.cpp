@@ -26,20 +26,38 @@ void hot_cui_rects(
 	// Right.Draw(ColorRGBA(1, 1, 1, 0.25f), IGraphics::CORNER_ALL, 10.0f);
 }
 
+class CUI;
+
 // View1, View2, ..
 // are set to the values you pass to EditorHotCuiRects()
 // if you do not pass values it will be set to an empty new CUIRect
 // pEditor might be a nullptr
 void editor_hot_cui_rects(
 	CEditor *pEditor,
-	CUIRect &View1,
-	CUIRect &View2,
-	CUIRect &View3,
+	CUIRect &View,
+	CUIRect &Prompt,
+	CUIRect &PromptBox,
 	CUIRect &View4,
 	CUIRect &View5,
 	CUIRect &View6)
 {
-	pEditor->MapView()->SetWorldOffset({32.0f * 10, 32.0f * 1});
+	auto UI = [pEditor]() -> CUI* { return pEditor->UI(); };
+
+
+	View.HSplitMid(&Prompt, nullptr);
+
+	Prompt.VSplitMid(nullptr, &PromptBox);
+
+	Prompt.Draw(ColorRGBA(0, 0, 0, 0.75f), IGraphics::CORNER_ALL, 10.0f);
+	Prompt.HSplitTop(32.0f, &PromptBox, nullptr);
+	PromptBox.Draw(ColorRGBA(1, 0, 0, 0.75f), IGraphics::CORNER_ALL, 10.0f);
+
+	UI()->DoLabel(&Prompt, "Search:", 10.0f, TEXTALIGN_ML);
+
+	if(UI()->DoClearableEditBox(&pEditor->m_PromptInput, &PromptBox, 10.0f))
+	{
+
+	}
 }
 
 }
