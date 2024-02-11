@@ -41,6 +41,22 @@ void editor_hot_cui_rects(
 	CUIRect &View5,
 	CUIRect &View6)
 {
+}
+
+// View1, View2, ..
+// are set to the values you pass to EditorHotCuiRects()
+// if you do not pass values it will be set to an empty new CUIRect
+// pEditor might be a nullptr
+void editor_list_hot_cui_rects(
+	CEditor *pEditor,
+	CListBox &s_ListBox,
+	CUIRect &View,
+	CUIRect &Prompt,
+	CUIRect &PromptBox,
+	CUIRect &View4,
+	CUIRect &View5,
+	CUIRect &View6)
+{
 	auto UI = [pEditor]() -> CUI* { return pEditor->UI(); };
 
 
@@ -58,6 +74,11 @@ void editor_hot_cui_rects(
 	{
 
 	}
+
+	int m_FilesSelectedIndex = 0;
+
+	s_ListBox.DoStart(15.0f, pEditor->m_vpFilteredPrompList.size(), 1, 5, m_FilesSelectedIndex, &View, false);
+
 }
 
 }
