@@ -5,6 +5,8 @@
 
 class CEditor;
 
+int hot_reload_tick = 0;
+
 typedef void (*cui_rects_ptr_t)(
 	CUIRect &View1,
 	CUIRect &View2,
@@ -70,24 +72,37 @@ void HotEditorCuiRects(
 	CUIRect &View5 = placeholder5,
 	CUIRect &View6 = placeholder6)
 {
-	char *error;
-	void *handle = dlopen("../../ddnet_hotui/sample.so", RTLD_LAZY);
-	if(!handle)
+	editor_cui_rects_ptr_t tick_ptr = nullptr;
+	void *handle;
+
+	hot_reload_tick++;
+	if(hot_reload_tick > 500)
 	{
-		fprintf(stderr, "%s\n", dlerror());
-		return;
+		hot_reload_tick = 0;
+		char *error;
+		handle = dlopen("../../ddnet_hotui/sample.so", RTLD_LAZY);
+		if(!handle)
+		{
+			fprintf(stderr, "%s\n", dlerror());
+			tick_ptr = nullptr;
+			return;
+		}
+
+		dlerror();
+		tick_ptr = (editor_cui_rects_ptr_t)dlsym(handle, "editor_hot_cui_rects");
+
+		error = dlerror();
+		if(error != NULL)
+		{
+			fprintf(stderr, "%s\n", error);
+			dlclose(handle);
+			tick_ptr = nullptr;
+			return;
+		}
 	}
 
-	dlerror();
-	editor_cui_rects_ptr_t tick_ptr;
-	tick_ptr = (editor_cui_rects_ptr_t)dlsym(handle, "editor_hot_cui_rects");
-
-	error = dlerror();
-	if(error != NULL)
-	{
-		fprintf(stderr, "%s\n", error);
+	if(!tick_ptr)
 		return;
-	}
 
 	tick_ptr(pEditor, View1, View2, View3, View4, View5, View6);
 
