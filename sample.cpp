@@ -39,7 +39,9 @@ void editor_hot_cui_rects(
 	CUIRect &View5,
 	CUIRect &View6)
 {
-	pEditor->MapView()->SetWorldOffset({32.0f * 10, 32.0f * 1});
+	#include "scopes/editor_scope.h"
+
+	MapView()->SetWorldOffset({32.0f * 10, 32.0f * 1});
 }
 
 }
