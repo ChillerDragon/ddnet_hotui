@@ -26,6 +26,29 @@ void hot_cui_rects(
 	// Right.Draw(ColorRGBA(1, 1, 1, 0.25f), IGraphics::CORNER_ALL, 10.0f);
 }
 
+
+// TODO: use CLayerTiles somehow
+int ConvertX(float x) { return (int)(x / 32.0f); }
+int ConvertY(float y) { return (int)(y / 32.0f); }
+
+void Convert(CUIRect Rect, RECTi *pOut)
+{
+	pOut->x = ConvertX(Rect.x);
+	pOut->y = ConvertY(Rect.y);
+	pOut->w = ConvertX(Rect.x + Rect.w + 31) - pOut->x;
+	pOut->h = ConvertY(Rect.y + Rect.h + 31) - pOut->y;
+}
+
+void Snap(CUIRect *pRect)
+{
+	RECTi Out;
+	Convert(*pRect, &Out);
+	pRect->x = Out.x * 32.0f;
+	pRect->y = Out.y * 32.0f;
+	pRect->w = Out.w * 32.0f;
+	pRect->h = Out.h * 32.0f;
+}
+
 // View1, View2, ..
 // are set to the values you pass to EditorHotCuiRects()
 // if you do not pass values it will be set to an empty new CUIRect
@@ -48,29 +71,26 @@ void editor_hot_cui_rects(
 		const std::shared_ptr<CLayerGroup> pGroup = m_Map.m_vpGroups[HoverTile.m_Group];
 		const std::shared_ptr<CLayer> pLayer = pGroup->m_vpLayers[HoverTile.m_Layer];
 
-		float aPoints[4];
-		pGroup->Mapping(aPoints);
-		float TopLeftX = aPoints[0];
-		float TopLeftY = aPoints[1];
-		float BottomRightX = aPoints[2];
-		float BottomRightY = aPoints[3];
+		float wx = UI()->MouseWorldX();
+		float wy = UI()->MouseWorldY();
 
-		float WorldWidth = aPoints[2] - aPoints[0];
-		float WorldHeight = aPoints[3] - aPoints[1];
+		pGroup->MapScreen();
 
-		// int x = aPoints[0] + WorldWidth * ((HoverTile.m_X * 32) / Graphics()->WindowWidth());
-		// int y = aPoints[1] + WorldHeight * ((HoverTile.m_Y * 32) / Graphics()->WindowHeight());
-		// m_MouseDeltaWx = m_MouseDeltaX * (WorldWidth / Graphics()->WindowWidth());
-		// m_MouseDeltaWy = m_MouseDeltaY * (WorldHeight / Graphics()->WindowHeight());
+		CUIRect Rect;
+		Rect.x = wx;
+		Rect.y = wy;
+		Rect.w = 0;
+		Rect.h = 0;
 
-		float TileScale = 64 / pEditor->m_MouseWScale;
-		int x = HoverTile.m_X * TileScale - MapView()->GetWorldOffset().x;
-		int y = HoverTile.m_Y * TileScale - MapView()->GetWorldOffset().y;
-
-		dbg_msg("c", "tile at %d %d", x, y);
 		Graphics()->TextureClear();
-		Graphics()->SetColor(vec4(0.0f, 1.0f, 0.0f, 1.0f));
-		Graphics()->DrawRect(x, y, TileScale, TileScale, ColorRGBA(0.0f, 0.0f, 1.0f, 0.5f), IGraphics::CORNER_ALL, 3.0f);
+		Graphics()->QuadsBegin();
+		Graphics()->SetColor(0.0f, 1.0f, 0.0f, 0.5f);
+		Snap(&Rect);
+		IGraphics::CQuadItem QuadItem(Rect.x, Rect.y, Rect.w, Rect.h);
+		Graphics()->QuadsDrawTL(&QuadItem, 1);
+		Graphics()->QuadsEnd();
+
+		UI()->MapScreen();
 	}
 }
 
