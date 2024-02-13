@@ -63,6 +63,7 @@ typedef void (*editor_cui_rects_ptr_t)(
 	CUIRect &View5,
 	CUIRect &View6);
 editor_cui_rects_ptr_t tick_ptr = nullptr;
+void *handle = nullptr;
 
 void HotEditorCuiRects(
 	CEditor *pEditor = nullptr,
@@ -73,13 +74,13 @@ void HotEditorCuiRects(
 	CUIRect &View5 = placeholder5,
 	CUIRect &View6 = placeholder6)
 {
-	void *handle;
-
 	hot_reload_tick++;
 	if(hot_reload_tick > 500)
 	{
 		hot_reload_tick = 0;
 		char *error;
+		if (handle)
+			dlclose(handle);
 		handle = dlopen("../../ddnet_hotui/sample.so", RTLD_LAZY);
 		if(!handle)
 		{
