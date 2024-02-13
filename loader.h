@@ -62,6 +62,7 @@ typedef void (*editor_cui_rects_ptr_t)(
 	CUIRect &View4,
 	CUIRect &View5,
 	CUIRect &View6);
+editor_cui_rects_ptr_t tick_ptr = nullptr;
 
 void HotEditorCuiRects(
 	CEditor *pEditor = nullptr,
@@ -72,7 +73,6 @@ void HotEditorCuiRects(
 	CUIRect &View5 = placeholder5,
 	CUIRect &View6 = placeholder6)
 {
-	editor_cui_rects_ptr_t tick_ptr = nullptr;
 	void *handle;
 
 	hot_reload_tick++;
@@ -105,6 +105,4 @@ void HotEditorCuiRects(
 		return;
 
 	tick_ptr(pEditor, View1, View2, View3, View4, View5, View6);
-
-	dlclose(handle);
 }
