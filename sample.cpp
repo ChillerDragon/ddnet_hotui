@@ -41,7 +41,44 @@ void editor_hot_cui_rects(
 {
 	#include "scopes/editor_scope.h"
 
-	MapView()->SetWorldOffset({32.0f * 10, 32.0f * 1});
+	for(size_t g = 0; g < m_Map.m_vpGroups.size(); g++)
+	{
+		const std::shared_ptr<CLayerGroup> pGroup = m_Map.m_vpGroups[g];
+		for(size_t l = 0; l < pGroup->m_vpLayers.size(); l++)
+		{
+			const std::shared_ptr<CLayer> pLayer = pGroup->m_vpLayers[l];
+			int LayerType = pLayer->m_Type;
+			if(LayerType != LAYERTYPE_TILES &&
+				LayerType != LAYERTYPE_FRONT &&
+				LayerType != LAYERTYPE_TELE &&
+				LayerType != LAYERTYPE_SPEEDUP &&
+				LayerType != LAYERTYPE_SWITCH &&
+				LayerType != LAYERTYPE_TUNE)
+				continue;
+
+			std::shared_ptr<CLayerTiles> pTiles = std::static_pointer_cast<CLayerTiles>(pLayer);
+
+			float aMapping[4];
+			pGroup->Mapping(aMapping);
+			int x = aMapping[0] + (aMapping[2] - aMapping[0]) / 2;
+			int y = aMapping[1] + (aMapping[3] - aMapping[1]) / 2;
+			x += UI()->MouseWorldX() - (MapView()->GetWorldOffset().x * pGroup->m_ParallaxX / 100) - pGroup->m_OffsetX;
+			y += UI()->MouseWorldY() - (MapView()->GetWorldOffset().y * pGroup->m_ParallaxY / 100) - pGroup->m_OffsetY;
+			x /= 32;
+			y /= 32;
+
+			if(x < 0 || x >= pTiles->m_Width)
+				continue;
+			if(y < 0 || y >= pTiles->m_Height)
+				continue;
+			CTile Tile = pTiles->GetTile(x, y);
+
+			if(Tile.m_Index)
+			{
+				dbg_msg("chiller", "tile=%d", Tile.m_Index);
+			}
+		}
+	}
 }
 
 }
