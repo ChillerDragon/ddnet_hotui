@@ -41,6 +41,9 @@ void editor_hot_cui_rects(
 {
 	#include "scopes/editor_scope.h"
 
+	float MouseX = pEditor->m_RawMouseX;
+	float MouseY = pEditor->m_RawMouseY;
+
 	for(size_t g = 0; g < m_Map.m_vpGroups.size(); g++)
 	{
 		const std::shared_ptr<CLayerGroup> pGroup = m_Map.m_vpGroups[g];
@@ -62,10 +65,13 @@ void editor_hot_cui_rects(
 			pGroup->Mapping(aMapping);
 			int x = aMapping[0] + (aMapping[2] - aMapping[0]) / 2;
 			int y = aMapping[1] + (aMapping[3] - aMapping[1]) / 2;
-			x += UI()->MouseWorldX() - (MapView()->GetWorldOffset().x * pGroup->m_ParallaxX / 100) - pGroup->m_OffsetX;
-			y += UI()->MouseWorldY() - (MapView()->GetWorldOffset().y * pGroup->m_ParallaxY / 100) - pGroup->m_OffsetY;
+			x += MouseX - (MapView()->GetWorldOffset().x * pGroup->m_ParallaxX / 100) - pGroup->m_OffsetX;
+			y += MouseY - (MapView()->GetWorldOffset().y * pGroup->m_ParallaxY / 100) - pGroup->m_OffsetY;
+			dbg_msg("chiller", "UI()->MouseWorldY()=%.2f - (%.2f * %d) - %d ==> %d / 32 ==> %d", MouseY, MapView()->GetWorldOffset().y, pGroup->m_ParallaxY / 100, pGroup->m_OffsetY, y, y / 32);
 			x /= 32;
 			y /= 32;
+
+			dbg_msg("chiller", "x=%d y=%d g=%zu l=%zu", x, y, g, l);
 
 			if(x < 0 || x >= pTiles->m_Width)
 				continue;
