@@ -70,6 +70,7 @@ void editor_hot_cui_rects(
 	{
 		const std::shared_ptr<CLayerGroup> pGroup = m_Map.m_vpGroups[HoverTile.m_Group];
 		const std::shared_ptr<CLayer> pLayer = pGroup->m_vpLayers[HoverTile.m_Layer];
+		auto pLayerTiles = std::static_pointer_cast<CLayerTiles>(pLayer);
 
 		float wx = UI()->MouseWorldX();
 		float wy = UI()->MouseWorldY();
@@ -85,7 +86,7 @@ void editor_hot_cui_rects(
 		Graphics()->TextureClear();
 		Graphics()->QuadsBegin();
 		Graphics()->SetColor(0.0f, 1.0f, 0.0f, 0.5f);
-		Snap(&Rect);
+		pLayerTiles->Snap(&Rect);
 		IGraphics::CQuadItem QuadItem(Rect.x, Rect.y, Rect.w, Rect.h);
 		Graphics()->QuadsDrawTL(&QuadItem, 1);
 		Graphics()->QuadsEnd();
