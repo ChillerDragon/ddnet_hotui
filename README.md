@@ -64,3 +64,8 @@ add_cxx_compiler_flag_if_supported(OUR_FLAGS_LINK -rdynamic)
 or alternatively you can run this ``cmake .. -DCMAKE_CXX_FLAGS=-rdynamic``
 
 Then you can play around in the ``sample.cpp`` file and run ``make`` when you are done. If the path [here](https://github.com/ChillerDragon/ddnet_hotui/blob/2e501b9e95dcb9a6d380a90f9a301d368cb42188/loader.h#L11)https://github.com/ChillerDragon/ddnet_hotui/blob/2e501b9e95dcb9a6d380a90f9a301d368cb42188/loader.h#L11 is correct you should see instant ui changes in your running client.
+
+## traps
+
+Do not use ``static`` variables in your hot reloaded code.
+They will be confusing to debug. They will be reset to their initial value on every hot reload.
