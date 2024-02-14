@@ -45,6 +45,8 @@ void editor_hot_cui_rects(
 	float MouseY = pEditor->m_RawMouseY;
 
 	dbg_msg("chiller", "---------------------------");
+	int FixG = 6;
+	int FixL = 0;
 
 	for(size_t g = 0; g < m_Map.m_vpGroups.size(); g++)
 	{
@@ -60,15 +62,34 @@ void editor_hot_cui_rects(
 				LayerType != LAYERTYPE_SWITCH &&
 				LayerType != LAYERTYPE_TUNE)
 				continue;
-			if(pLayer != m_Map.m_pGameLayer)
+			// if(pLayer != m_Map.m_pGameLayer)
+			// 	continue;
+			if(FixG != g)
 				continue;
+			if(FixL != l)
+				continue;
+			// pEditor->SelectLayer(FixL, FixG);
 
 			std::shared_ptr<CLayerTiles> pTiles = std::static_pointer_cast<CLayerTiles>(pLayer);
-			// pGroup->MapScreen();
+			pGroup->MapScreen();
+
+			float x = UI()->MouseWorldX();
+			float y = UI()->MouseWorldY();
+
+			float aPoints[4];
+			pGroup->Mapping(aPoints);
+
+			float WorldWidth = aPoints[2] - aPoints[0];
+			float WorldHeight = aPoints[3] - aPoints[1];
+
+			x = aPoints[0] + WorldWidth * (MouseX / Graphics()->WindowWidth());
+			y = aPoints[1] + WorldHeight * (MouseY / Graphics()->WindowHeight());
+
+
 
 			CUIRect Rect;
-			Rect.x = UI()->MouseWorldX();
-			Rect.y = UI()->MouseWorldY();
+			Rect.x = x;
+			Rect.y = y;
 			Rect.w = 0;
 			Rect.h = 0;
 
@@ -76,10 +97,10 @@ void editor_hot_cui_rects(
 			pTiles->Convert(Rect, &r);
 			pTiles->Clamp(&r);
 
-			dbg_msg("chiller", "x=%.2f", UI()->MouseWorldX());
-			dbg_msg("chiller", "r.x=%d", r.x);
+			dbg_msg("chiller", "g=%zu l=%zu", g, l);
+			dbg_msg("chiller", "r.x=%d r.y=%d", r.x, r.y);
 
-			// UI()->MapScreen();
+			UI()->MapScreen();
 
 			// float aMapping[4];
 			// pGroup->Mapping(aMapping);
