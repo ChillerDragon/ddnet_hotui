@@ -78,8 +78,7 @@ int add_watch()
 
 int got_new_so()
 {
-	if(add_watch())
-		return 1;
+	add_watch();
 	if(inotify_fd == -1)
 		return 1;
 	struct pollfd poll_fd;
@@ -119,6 +118,7 @@ int got_new_so()
 			// triggers reconnect if it appears again
 			inotify_watch = -1;
 			dbg_msg("ddnet_hotui", "file deleted %s", HOT_SO_PATH);
+			got_update = 1;
 		}
 		else if(pEvent->mask & READ_ONLY_OPERATION)
 		{
