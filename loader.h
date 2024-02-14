@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define HOT_SO_PATH "../../ddnet_hotui/sample.so"
+
 class CEditor;
 
 int hot_reload_tick = 0;
@@ -31,7 +33,7 @@ void HotCuiRects(
 	CUIRect &View6 = placeholder6)
 {
 	char *error;
-	void *handle = dlopen("../../ddnet_hotui/sample.so", RTLD_LAZY);
+	void *handle = dlopen(HOT_SO_PATH, RTLD_LAZY);
 	if(!handle)
 	{
 		fprintf(stderr, "%s\n", dlerror());
@@ -81,7 +83,7 @@ void HotEditorCuiRects(
 		char *error;
 		if (handle)
 			dlclose(handle);
-		handle = dlopen("../../ddnet_hotui/sample.so", RTLD_LAZY);
+		handle = dlopen(HOT_SO_PATH, RTLD_LAZY);
 		if(!handle)
 		{
 			fprintf(stderr, "%s\n", dlerror());
