@@ -2,10 +2,31 @@
 #include <dlfcn.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/stat.h>
+
+#define HOT_SO_PATH "../../ddnet_hotui/sample.so"
 
 class CEditor;
 
-int hot_reload_tick = 0;
+__int64_t last_so_create_time = -1;
+
+int got_update()
+{
+	struct stat info;
+	if(stat(HOT_SO_PATH, &info))
+	{
+		dbg_msg("ddnet_hotui", "failed to get stats of %s", HOT_SO_PATH);
+		return 1;
+	}
+
+	__int64_t time = info.st_ctime;
+	if(time > last_so_create_time)
+	{
+		last_so_create_time = time;
+		return 1;
+	}
+	return 0;
+}
 
 typedef void (*cui_rects_ptr_t)(
 	CUIRect &View1,
@@ -31,7 +52,7 @@ void HotCuiRects(
 	CUIRect &View6 = placeholder6)
 {
 	char *error;
-	void *handle = dlopen("../../ddnet_hotui/sample.so", RTLD_LAZY);
+	void *handle = dlopen(HOT_SO_PATH, RTLD_LAZY);
 	if(!handle)
 	{
 		fprintf(stderr, "%s\n", dlerror());
@@ -74,14 +95,15 @@ void HotEditorCuiRects(
 	CUIRect &View5 = placeholder5,
 	CUIRect &View6 = placeholder6)
 {
-	hot_reload_tick++;
-	if(hot_reload_tick > 500)
+	if(got_update())
 	{
-		hot_reload_tick = 0;
+		dbg_msg("ddnet_hotui", "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+		dbg_msg("ddnet_hotui", "X ddnet_hotui detected update ...  X");
+		dbg_msg("ddnet_hotui", "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 		char *error;
 		if (handle)
 			dlclose(handle);
-		handle = dlopen("../../ddnet_hotui/sample.so", RTLD_LAZY);
+		handle = dlopen(HOT_SO_PATH, RTLD_LAZY);
 		if(!handle)
 		{
 			fprintf(stderr, "%s\n", dlerror());
