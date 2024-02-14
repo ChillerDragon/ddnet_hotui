@@ -44,6 +44,8 @@ void editor_hot_cui_rects(
 	float MouseX = pEditor->m_RawMouseX;
 	float MouseY = pEditor->m_RawMouseY;
 
+	dbg_msg("chiller", "---------------------------");
+
 	for(size_t g = 0; g < m_Map.m_vpGroups.size(); g++)
 	{
 		const std::shared_ptr<CLayerGroup> pGroup = m_Map.m_vpGroups[g];
@@ -58,6 +60,8 @@ void editor_hot_cui_rects(
 				LayerType != LAYERTYPE_SWITCH &&
 				LayerType != LAYERTYPE_TUNE)
 				continue;
+			if(pLayer != m_Map.m_pGameLayer)
+				continue;
 
 			std::shared_ptr<CLayerTiles> pTiles = std::static_pointer_cast<CLayerTiles>(pLayer);
 
@@ -67,7 +71,7 @@ void editor_hot_cui_rects(
 			int y = aMapping[1] + (aMapping[3] - aMapping[1]) / 2;
 			x += MouseX - (MapView()->GetWorldOffset().x * pGroup->m_ParallaxX / 100) - pGroup->m_OffsetX;
 			y += MouseY - (MapView()->GetWorldOffset().y * pGroup->m_ParallaxY / 100) - pGroup->m_OffsetY;
-			dbg_msg("chiller", "UI()->MouseWorldY()=%.2f - (%.2f * %d) - %d ==> %d / 32 ==> %d", MouseY, MapView()->GetWorldOffset().y, pGroup->m_ParallaxY / 100, pGroup->m_OffsetY, y, y / 32);
+			dbg_msg("chiller", "UI()->MouseWorldY()=%.2f - (%.2f * %.2f) - %d ==> %d / 32 ==> %d", MouseY, MapView()->GetWorldOffset().y, pGroup->m_ParallaxY / 100.0f, pGroup->m_OffsetY, y, y / 32);
 			x /= 32;
 			y /= 32;
 
