@@ -108,6 +108,7 @@ void HotEditorCuiRects(
 		{
 			fprintf(stderr, "%s\n", dlerror());
 			tick_ptr = nullptr;
+			last_so_create_time = -1;
 			return;
 		}
 
@@ -120,6 +121,7 @@ void HotEditorCuiRects(
 			fprintf(stderr, "%s\n", error);
 			dlclose(handle);
 			tick_ptr = nullptr;
+			last_so_create_time = -1;
 			return;
 		}
 	}
