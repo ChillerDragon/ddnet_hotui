@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <cstring>
 
-#include "../ddnet/src/engine/keys.h"
-#include "../ddnet/src/game/editor/editor.h"
-#include "../ddnet/src/game/client/ui_rect.h"
-#include "../ddnet/src/engine/graphics.h"
+#include "engine/keys.h"
+#include "game/editor/editor.h"
+#include "game/client/ui_rect.h"
+#include "engine/graphics.h"
 
 extern "C"{
 
