@@ -2,7 +2,7 @@ all: sample
 
 CXX = clang++
 
-CXX_FLAGS = -I../ddnet/src -std=c++17
+CXX_FLAGS = -I../ddnet/src -I../ddnet/build/src -std=c++17
 
 sample:	sample.cpp
 	$(CXX) $(DEBUG) $(CXX_FLAGS) -c -fPIC sample.cpp -o sample.o
