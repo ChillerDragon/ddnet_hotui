@@ -12,6 +12,8 @@ sample:	sample.cpp
 	$(CXX) $(DEBUG) $(CXX_FLAGS) -shared -Wl,-soname,sample.so -o sample.so build/sample.o
 	test -d $(DDNET_DIR)/debug && cp *.so ../debug
 	test -d $(DDNET_DIR)/build && cp *.so ../build
+	@COMPILE_JSON="$(shell find $(DDNET_DIR) -type f -name "compile_commands.json" -printf "%T@ %p\n" | sort -n | cut -d' ' -f 2- | tail -n 1)"; \
+	[ "$$COMPILE_JSON" = "" ] || { cp "$$COMPILE_JSON" build; echo cp $$COMPILE_JSON build/; }
 
 debug: DEBUG=-g
 
