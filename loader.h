@@ -28,6 +28,10 @@ int got_update()
 	return 0;
 }
 
+/*
+ * cui rects
+ */
+
 typedef void (*cui_rects_ptr_t)(
 	CUIRect &View1,
 	CUIRect &View2,
@@ -74,6 +78,10 @@ void HotCuiRects(
 
 	dlclose(handle);
 }
+
+/*
+ * editor cui rects
+ */
 
 typedef void (*editor_cui_rects_ptr_t)(
 	CEditor *pEditor,
@@ -131,3 +139,69 @@ void HotEditorCuiRects(
 
 	tick_ptr(pEditor, View1, View2, View3, View4, View5, View6);
 }
+
+/*
+ * hot void
+ */
+
+typedef void (*hot_void_ptr_t)(
+	void *void1, size_t size1,
+	void *void2, size_t size2,
+	void *void3, size_t size3,
+	void *void4, size_t size4,
+	void *void5, size_t size5,
+	void *void6, size_t size6);
+hot_void_ptr_t void_tick_ptr = nullptr;
+void *void_handle = nullptr;
+
+void HotVoidPtrs(
+	void *void1 = nullptr, size_t size1 = 0,
+	void *void2 = nullptr, size_t size2 = 0,
+	void *void3 = nullptr, size_t size3 = 0,
+	void *void4 = nullptr, size_t size4 = 0,
+	void *void5 = nullptr, size_t size5 = 0,
+	void *void6 = nullptr, size_t size6 = 0)
+{
+	if(got_update())
+	{
+		dbg_msg("ddnet_hotui", "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+		dbg_msg("ddnet_hotui", "X ddnet_hotui detected update ...  X");
+		dbg_msg("ddnet_hotui", "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+		char *error;
+		if (void_handle)
+			dlclose(void_handle);
+		void_handle = dlopen(HOT_SO_PATH, RTLD_LAZY);
+		if(!void_handle)
+		{
+			fprintf(stderr, "%s\n", dlerror());
+			void_tick_ptr = nullptr;
+			last_so_create_time = -1;
+			return;
+		}
+
+		dlerror();
+		void_tick_ptr = (hot_void_ptr_t)dlsym(void_handle, "hot_void_ptrs");
+
+		error = dlerror();
+		if(error != NULL)
+		{
+			fprintf(stderr, "%s\n", error);
+			dlclose(void_handle);
+			void_tick_ptr = nullptr;
+			last_so_create_time = -1;
+			return;
+		}
+	}
+
+	if(!void_tick_ptr)
+		return;
+
+	void_tick_ptr(
+		void1, size1,
+		void2, size2,
+		void3, size3,
+		void4, size4,
+		void5, size5,
+		void6, size6);
+}
+
