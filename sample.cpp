@@ -62,8 +62,8 @@ void hot_void_ptrs(
 	void *void5, size_t size5,
 	void *void6, size_t size6)
 {
-	CTeeRenderInfo *pInfo = (CTeeRenderInfo *)void1;
-	pInfo->m_Sixup.m_aColors[protocol7::SKINPART_BODY] = ColorRGBA(1,0,0,1);
+	// CTeeRenderInfo *pInfo = (CTeeRenderInfo *)void1;
+	// pInfo->m_Sixup.m_aColors[protocol7::SKINPART_BODY] = ColorRGBA(1,0,0,1);
 }
 
 }
