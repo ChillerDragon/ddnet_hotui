@@ -13,6 +13,8 @@ https://github.com/ChillerDragon/ddnet_hotui/assets/20344300/85bc7a03-98a4-4fb1-
 
 https://github.com/ChillerDragon/ddnet_hotui/assets/20344300/c3bebe56-374d-4fb6-aa89-87f26d927d23
 
+![ddnet_hotui_ingame.gif](https://raw.githubusercontent.com/ChillerDragon/cdn/master/ddnet_hotui_ingame.gif)
+
 ## full on video tutorial on how to use it
 
 [![ddnet hotui video tutorial](https://img.youtube.com/vi/S4Jwy62oRy8/hqdefault.jpg)](https://www.youtube.com/watch?v=S4Jwy62oRy8)
