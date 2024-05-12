@@ -142,6 +142,7 @@ void editor_list_hot_cui_rects(
 			}
 		}
 	}
+	Ui()->SetActiveItem(&m_PromptInput);
 
 	s_ListBox.SetActive(m_Dialog == DIALOG_NONE && !Ui()->IsPopupOpen());
 	s_ListBox.DoStart(15.0f, m_vpFilteredPrompList.size(), 1, 5, m_PromptSelectedIndex, &Suggestions, false);
