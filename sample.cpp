@@ -91,7 +91,7 @@ void editor_list_hot_cui_rects(
 
 	// printf("%s\n", str_find_nocase_char("add quad", 'a'));
 
-	auto UI = [pEditor]() -> CUI* { return pEditor->UI(); };
+	auto Ui = [pEditor]() -> CUi* { return pEditor->Ui(); };
 	int m_Dialog = pEditor->m_Dialog;
 	int &m_PromptSelectedIndex = pEditor->m_PromptSelectedIndex;
 	std::vector<char *> &m_vpCompletePrompList = pEditor->m_vpCompletePrompList;
@@ -129,7 +129,7 @@ void editor_list_hot_cui_rects(
 	Prompt.HSplitTop(32.0f, &PromptBox, &Suggestions);
 	PromptBox.Draw(ColorRGBA(1, 0, 0, 0.75f), IGraphics::CORNER_ALL, 10.0f);
 
-	if(UI()->DoClearableEditBox(&m_PromptInput, &PromptBox, 10.0f))
+	if(Ui()->DoClearableEditBox(&m_PromptInput, &PromptBox, 10.0f))
 	{
 		m_PromptSelectedIndex = 0;
 		m_vpFilteredPrompList.clear();
@@ -143,7 +143,7 @@ void editor_list_hot_cui_rects(
 		}
 	}
 
-	s_ListBox.SetActive(m_Dialog == DIALOG_NONE && !UI()->IsPopupOpen());
+	s_ListBox.SetActive(m_Dialog == DIALOG_NONE && !Ui()->IsPopupOpen());
 	s_ListBox.DoStart(15.0f, m_vpFilteredPrompList.size(), 1, 5, m_PromptSelectedIndex, &Suggestions, false);
 
 	for(size_t i = 0; i < m_vpFilteredPrompList.size(); i++)
@@ -161,7 +161,7 @@ void editor_list_hot_cui_rects(
 		SLabelProperties Props;
 		Props.m_MaxWidth = Button.w;
 		Props.m_EllipsisAtEnd = true;
-		UI()->DoLabel(&Button, m_vpFilteredPrompList[i], 10.0f, TEXTALIGN_ML, Props);
+		Ui()->DoLabel(&Button, m_vpFilteredPrompList[i], 10.0f, TEXTALIGN_ML, Props);
 
 	}
 
