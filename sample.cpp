@@ -6,6 +6,7 @@
 #include "../ddnet/src/game/editor/editor.h"
 #include "../ddnet/src/game/client/ui_rect.h"
 #include "../ddnet/src/engine/graphics.h"
+#include "engine/input.h"
 
 extern "C"{
 
@@ -92,6 +93,7 @@ void editor_list_hot_cui_rects(
 	// printf("%s\n", str_find_nocase_char("add quad", 'a'));
 
 	auto Ui = [pEditor]() -> CUi* { return pEditor->Ui(); };
+	auto Input = [pEditor]() -> IInput* { return pEditor->Input(); };
 	int m_Dialog = pEditor->m_Dialog;
 	int &m_PromptSelectedIndex = pEditor->m_PromptSelectedIndex;
 	std::vector<char *> &m_vpCompletePrompList = pEditor->m_vpCompletePrompList;
@@ -170,8 +172,19 @@ void editor_list_hot_cui_rects(
 	if(m_PromptSelectedIndex != NewSelected)
 	{
 		m_PromptSelectedIndex = NewSelected;
+
+
 	}
 
+	if(Ui()->ConsumeHotkey(CUi::HOTKEY_ENTER) || Input()->KeyIsPressed(KEY_RETURN))
+	{
+		dbg_msg("editor", "enter");
+		if(m_PromptSelectedIndex > 0)
+		{
+			const char *pName = m_vpFilteredPrompList[m_PromptSelectedIndex];
+			dbg_msg("editor", "selected %s", pName);
+		}
+	}
 }
 
 }
