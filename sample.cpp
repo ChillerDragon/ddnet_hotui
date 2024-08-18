@@ -18,17 +18,17 @@ extern "C"{
 // are set to the values you pass to HotCuiRects()
 // if you do not pass values it will be set to an empty new CUIRect
 void hot_cui_rects(
+	CUIRect &ButtonRefresh,
 	CUIRect &BottomView,
+	CUIRect &QuickSearch,
 	CUIRect &ButtonLeft,
 	CUIRect &ButtonMiddle,
-	CUIRect &ButtonRight,
-	CUIRect &View5,
-	CUIRect &View6)
+	CUIRect &ButtonRight)
 {
 	// CUIRect Left, Right;
 	// View1.VSplitMid(&Left, &Right, 5.0f);
 
-	BottomView.Draw(ColorRGBA(1, 1, 1, 0.25f), IGraphics::CORNER_ALL, 10.0f);
+	ButtonRefresh.Draw(ColorRGBA(1, 1, 1, 0.25f), IGraphics::CORNER_ALL, 10.0f);
 	// Right.Draw(ColorRGBA(1, 1, 1, 0.25f), IGraphics::CORNER_ALL, 10.0f);
 }
 
