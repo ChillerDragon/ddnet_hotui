@@ -2,6 +2,7 @@
 #include <cstring>
 
 #include "base/system.h"
+#include "base/color.h"
 #include "engine/keys.h"
 #include "game/client/render.h"
 #include "game/editor/editor.h"
@@ -17,17 +18,17 @@ extern "C"{
 // are set to the values you pass to HotCuiRects()
 // if you do not pass values it will be set to an empty new CUIRect
 void hot_cui_rects(
-	CUIRect &View1,
-	CUIRect &View2,
-	CUIRect &View3,
-	CUIRect &View4,
+	CUIRect &BottomView,
+	CUIRect &ButtonLeft,
+	CUIRect &ButtonMiddle,
+	CUIRect &ButtonRight,
 	CUIRect &View5,
 	CUIRect &View6)
 {
-	CUIRect Left, Right;
-	View1.VSplitMid(&Left, &Right, 5.0f);
+	// CUIRect Left, Right;
+	// View1.VSplitMid(&Left, &Right, 5.0f);
 
-	Left.Draw(ColorRGBA(1, 1, 1, 0.25f), IGraphics::CORNER_ALL, 10.0f);
+	BottomView.Draw(ColorRGBA(1, 1, 1, 0.25f), IGraphics::CORNER_ALL, 10.0f);
 	// Right.Draw(ColorRGBA(1, 1, 1, 0.25f), IGraphics::CORNER_ALL, 10.0f);
 }
 
